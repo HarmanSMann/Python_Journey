@@ -6,9 +6,9 @@ import autopy
 
 
 ##########################################
-wCam, hCam = 640, 480
-wScr, hScr = autopy.screen.size()
-frameR = 100
+wCam, hCam = 1080, 640
+wScr, hScr = autopy.screen.size() # 1080
+frameR = 20
 smoothingVal = 7
 ##########################################
 
@@ -17,28 +17,26 @@ plocX, plocY = 0, 0
 clocX, clocY = 0, 0
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 cap.set(3, wCam)
 cap.set(4, hCam)
 
-
-detector = htm.HandTrackingModule(maxHands=1)
-
+detector = htm.handDetector(maxHands=1)
 
 while True:
     success, img = cap.read()
-    img = detector.findHands(img)
-    lmList, bbox = detector.findPosition(img)
+    img = detector.findHands(img)  # Draw lines
+    lmList, bbox = detector.findPosition(img)  # Draw points
 
     if len(lmList) != 0:
         x1, y1 = lmList[8][1:]
         x2, y2 = lmList[12][1:]
 
+        # Draw moving surface
         fingers = detector.fingersUp()
-        cv2.rectangel(img, (frameR, frameR), (wCam-frameR,
-                      hCam - frameR), (255, 0, 255), 2)
-        cv2.rectangel(img, (frameR, frameR), (wCam-frameR,
-                      hCam - frameR), (255, 0, 255), 2)
+        cv2.rectangle(img, (175, 10), (1080, 600), (255, 0, 255), 2)
+        cv2.rectangle(img, (175, 10), (1080, 600), (255, 0, 255), 2)
+        # cv2.rectangle(img, (frameR, frameR), (wCam-frameR, hCam - frameR), (255, 0, 255), 2)
 
         # move motion
         if fingers[1] == 1 and fingers[2] == 0:
@@ -56,7 +54,7 @@ while True:
         # click mode
         if fingers[1] == 1 and fingers[2] == 1:
             length, img, lineInfo = detector.findDistance(8, 12, img)
-            if length < 40:
+            if length < 70:
                 cv2.circle(img, (lineInfo[4], lineInfo[5]),
                            15, (0, 255, 0), cv2.FILLED)
                 autopy.mouse.click()
@@ -65,8 +63,8 @@ while True:
     fps = 1 / (cTime - pTime)
     pTime = cTime
 
-    cv2.putText(img, str(int(fps)), (400, 70),
+    cv2.putText(img, str(int(fps)), (frameR, 70),
                 cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 0), 3)
 
     cv2.imshow("Image", img)
-    cv2.waitKey(1)
+    cv2.waitKey(5)
