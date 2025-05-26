@@ -1,0 +1,36 @@
+What is Machine Learning (ML)
+
+Machine Learning is a way for computers to learn patterns fromdata and mamke decisions without being explicityly programmed
+
+Instead f running through manual rules (like using if statements or conditions), we teac the computer by providing it information about some interaction and giving it a yes or no, reinforcement learning for what to do and what not to do.
+
+Types of ML
+    Supervided Learning
+        You provide labeled data (inputs and correct outputs)
+        Model learns to predict labels from features
+        Examples:
+            Predict house prices (Regression)
+            Detect spam emails (Classification)
+
+    Upsupervised Learning
+        You provide unlabeled data
+        Model finds hidden patterns or structures
+        Examples:
+            Group customers into segments (Clustering)
+            Reduce data dimensions (PCA)
+
+    Reinforcement Learning
+        Model learns from rewards and punishments
+        Often used in gaming, robotics
+        Examples:
+            Self-learning chess engines
+            Training a robot to walk
+
+Term	                Meaning
+Feature	                A variable used as input (e.g., age, weight)
+Label/Target	        What you're predicting (e.g., price, yes/no)
+Model	                A function that maps input to output
+Training	            Teaching the model using data
+Testing	                Measuring how well the model performs
+Overfitting	            Model memorizes instead of generalizing
+Underfitting	        Model is too simple to learn patterns
